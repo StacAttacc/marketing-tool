@@ -33,9 +33,7 @@ export const getDb = () => {
     ws,
   })
 
-  if (env.NODE_ENV !== 'production') {
-    globalThis.__db__ = db
-  }
+  globalThis.__db__ = db
 
   return db
 }
@@ -55,9 +53,7 @@ export const getSecondDb = (): ReadOnlyDatabase => {
     ws,
   })
 
-  if (env.NODE_ENV !== 'production') {
-    globalThis.__secondDb__ = db
-  }
+  globalThis.__secondDb__ = db
 
   return {
     select: db.select.bind(db),
