@@ -1,5 +1,6 @@
 import { getDb } from './db'
-import { budget, channel, channelBudget, spend, result, campaign } from './schemas'
+import { budget, channel, channelBudget, spend, result, campaign, customer, quizAnswers } from './schemas'
+import { auth } from '~~/server/utils/auth'
 import { tryCatch } from '~~/shared/utils/tryCatch'
 
 export async function seed() {
@@ -299,16 +300,99 @@ async function seedData() {
   console.log('🎉 Seeding complete!')
 }
 
+// ─── Customers & Quiz Answers ──────────────────────────────────────────────────
+//
+// Synthetic platform customers with referral sources that align with the
+// marketing channels. Growth mirrors the spend/result data (Oct 2025 → today).
+
+export async function seedCustomers() {
+  const db = getDb()
+
+  console.log('🌱 Seeding customers...')
+
+  await db.delete(quizAnswers)
+  await db.delete(customer)
+
+  const launchDate = new Date('2025-10-01')
+  const today = new Date()
+  const totalDays = Math.floor((today.getTime() - launchDate.getTime()) / 86_400_000)
+
+  // Weighted referral source distribution matching channel spend proportions
+  const referralWeights = [
+    { source: 'google', weight: 25 },
+    { source: 'instagram', weight: 15 },
+    { source: 'facebook', weight: 10 },
+    { source: 'tiktok', weight: 20 },
+    { source: 'someone', weight: 10 },
+    { source: 'reddit', weight: 10 },
+    { source: 'discord', weight: 5 },
+    { source: 'other', weight: 5 },
+  ] as const
+
+  type ReferralSource = typeof referralWeights[number]['source']
+  const totalWeight = referralWeights.reduce((s, r) => s + r.weight, 0)
+
+  const customerRecords: { id: string, createdAt: Date }[] = []
+  const quizRecords: { customerId: string, referralSource: ReferralSource }[] = []
+
+  let sourceCounter = 0
+
+  for (let day = 0; day <= totalDays; day++) {
+    const date = new Date(launchDate)
+    date.setDate(launchDate.getDate() + day)
+
+    const base = 1.5 + (day / 167) * 10
+    const dailyCount = Math.max(1, Math.round(base))
+
+    for (let u = 0; u < dailyCount; u++) {
+      const id = crypto.randomUUID()
+      customerRecords.push({ id, createdAt: date })
+
+      // Deterministic weighted round-robin so the distribution is predictable
+      let pick = sourceCounter % totalWeight
+      let source: ReferralSource = 'other'
+      let acc = 0
+      for (const ref of referralWeights) {
+        acc += ref.weight
+        if (pick < acc) { source = ref.source; break }
+      }
+      sourceCounter++
+      quizRecords.push({ customerId: id, referralSource: source })
+    }
+  }
+
+  const BATCH = 500
+  for (let i = 0; i < customerRecords.length; i += BATCH) {
+    await db.insert(customer).values(customerRecords.slice(i, i + BATCH))
+  }
+  console.log(`✅ Inserted ${customerRecords.length} customers`)
+
+  for (let i = 0; i < quizRecords.length; i += BATCH) {
+    await db.insert(quizAnswers).values(quizRecords.slice(i, i + BATCH))
+  }
+  console.log(`✅ Inserted ${quizRecords.length} quiz answers`)
+
+  console.log('🎉 Customer seeding complete!')
+}
+
+// ─── Admin user ───────────────────────────────────────────────────────────────
+
 export async function seedAdmin() {
-  const seedAdmin = await tryCatch(
-    auth.api.signUpEmail({
-      body: {
-        email: 'admin@admin.com',
-        password: 'password123',
-        name: 'Admin Adminson',
-      },
-    }))
-  if (seedAdmin.error) {
-    console.log(seedAdmin.error.message || 'admin already exists')
+  const email = process.env.SEED_ADMIN_EMAIL
+  const password = process.env.SEED_ADMIN_PASSWORD
+
+  if (!email || !password) {
+    throw new Error('SEED_ADMIN_EMAIL and SEED_ADMIN_PASSWORD must be set')
+  }
+
+  const { error } = await tryCatch(
+    auth.api.signUpEmail({ body: { email, password, name: 'Admin' } }),
+  )
+
+  if (error) {
+    console.log(error.message || 'Admin already exists')
+  }
+  else {
+    console.log(`✅ Admin user created: ${email}`)
   }
 }
