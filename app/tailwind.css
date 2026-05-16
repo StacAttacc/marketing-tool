@@ -1,0 +1,65 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: "caramellatte";
+}
+
+@theme {
+  --color-tin-bronze: #c93400;
+  --color-base-100: #fef9f3;
+  --color-base-200: #feecd3;
+  --color-base-300: #ffd6a7;
+  --color-prometheus-orange: #7c2808;
+  --color-cadium-green: #006b3e;
+
+  --font-sans: "Roca", sans-serif;
+  --font-heading: "Poppins", sans-serif;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+  }
+
+  select {
+    accent-color: var(--color-accent);
+  }
+
+  select option {
+    background-color: var(--color-base-100);
+    color: var(--color-base-content);
+  }
+
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+  }
+}
+
+:root {
+  --border: 0px;
+}
+
+@layer utilities {
+  input:focus,
+  button:focus,
+  textarea:focus,
+  select:focus,
+  .input:focus,
+  .input:focus-within,
+  .select:focus,
+  .select:focus-within {
+    outline: none;
+  }
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
+  }
+  .scrollbar-hidden {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+}

@@ -1,0 +1,1 @@
+ALTER TABLE "channel_budget" ADD CONSTRAINT "channel_budget_budget_id_unique" UNIQUE("budget_id");
