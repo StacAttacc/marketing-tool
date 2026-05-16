@@ -7,7 +7,6 @@ export const env = createEnv({
     BETTER_AUTH_SECRET: z.string().min(1),
     BETTER_AUTH_URL: z.string().min(1),
     DATABASE_URL: z.string().min(1),
-    SECOND_DATABASE_URL: z.string().min(1),
     ANTHROPIC_API_KEY: z.string().min(1),
   },
   runtimeEnv: process.env,

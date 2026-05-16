@@ -1,14 +1,14 @@
 import { authorized } from '~~/server/orpc/authorized'
 import { ORPCError } from '@orpc/server'
-import { user } from '~~/server/database/schemas-second/schema'
+import { customer } from '~~/server/database/schemas'
 import { tryCatch } from '~~/shared/utils/tryCatch'
 import { sql } from 'drizzle-orm'
 
 export default authorized.handler(async ({ context }) => {
   const { data, error } = await tryCatch(
-    context.secondDb
+    context.db
       .select({ total: sql<number>`count(*)::int` })
-      .from(user),
+      .from(customer),
   )
 
   if (error) {

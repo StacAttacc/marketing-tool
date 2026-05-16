@@ -1,6 +1,6 @@
 import { authorized } from '~~/server/orpc/authorized'
 import { ORPCError } from '@orpc/server'
-import { user, quizAnswers } from '~~/server/database/schemas-second/schema'
+import { customer, quizAnswers } from '~~/server/database/schemas'
 import { tryCatch } from '~~/shared/utils/tryCatch'
 import { sql, eq } from 'drizzle-orm'
 
@@ -16,16 +16,16 @@ const referralToChannel: Record<string, string> = {
 
 export default authorized.handler(async ({ context }) => {
   const { data, error } = await tryCatch(
-    context.secondDb
+    context.db
       .select({
-        date: sql<string>`DATE(${user.createdAt})::text`,
+        date: sql<string>`DATE(${customer.createdAt})::text`,
         referralSource: quizAnswers.referralSource,
         count: sql<number>`count(*)::int`,
       })
-      .from(user)
-      .leftJoin(quizAnswers, eq(quizAnswers.userId, user.id))
-      .groupBy(sql`DATE(${user.createdAt})`, quizAnswers.referralSource)
-      .orderBy(sql`DATE(${user.createdAt})`),
+      .from(customer)
+      .leftJoin(quizAnswers, eq(quizAnswers.customerId, customer.id))
+      .groupBy(sql`DATE(${customer.createdAt})`, quizAnswers.referralSource)
+      .orderBy(sql`DATE(${customer.createdAt})`),
   )
 
   if (error) {
