@@ -1,8 +1,8 @@
 FROM node:24-alpine AS builder
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN HUSKY=0 npm ci
+COPY package.json package-lock.json .npmrc ./
+RUN ls -la && HUSKY=0 npm ci
 
 COPY . .
 RUN npm run build
