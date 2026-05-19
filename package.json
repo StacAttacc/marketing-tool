@@ -18,8 +18,8 @@
     "db:migrate": "drizzle-kit migrate --config=drizzle.config.ts",
     "db:push": "drizzle-kit push --config=drizzle.config.ts",
     "db:studio": "drizzle-kit studio --config=drizzle.config.ts",
-    "db:seed-admin": "tsx --env-file .env --tsconfig tsconfig.scripts.json server/database/scripts/seed-admin.ts",
-    "db:seed-data": "tsx --env-file .env --tsconfig tsconfig.scripts.json server/database/scripts/seed-data.ts"
+    "db:seed-admin": "TSX_TSCONFIG_PATH=tsconfig.scripts.json tsx --env-file .env server/database/scripts/seed-admin.ts",
+    "db:seed-data": "TSX_TSCONFIG_PATH=tsconfig.scripts.json tsx --env-file .env server/database/scripts/seed-data.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.91.1",
