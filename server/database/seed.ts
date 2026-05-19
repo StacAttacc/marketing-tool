@@ -349,12 +349,15 @@ export async function seedCustomers() {
       customerRecords.push({ id, createdAt: date })
 
       // Deterministic weighted round-robin so the distribution is predictable
-      let pick = sourceCounter % totalWeight
+      const pick = sourceCounter % totalWeight
       let source: ReferralSource = 'other'
       let acc = 0
       for (const ref of referralWeights) {
         acc += ref.weight
-        if (pick < acc) { source = ref.source; break }
+        if (pick < acc) {
+          source = ref.source
+          break
+        }
       }
       sourceCounter++
       quizRecords.push({ customerId: id, referralSource: source })

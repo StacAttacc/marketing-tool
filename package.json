@@ -42,6 +42,7 @@
     "pg": "^8.17.2",
     "tailwindcss": "^4.1.18",
     "v-calendar": "^3.1.2",
+    "@popperjs/core": "^2.11.8",
     "vue": "^3.5.26",
     "vue-router": "^4.6.4",
     "vue3-apexcharts": "^1.10.0",

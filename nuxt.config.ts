@@ -26,7 +26,7 @@ export default defineNuxtConfig({
         'X-Frame-Options': 'DENY',
         'X-Content-Type-Options': 'nosniff',
         'Referrer-Policy': 'strict-origin-when-cross-origin',
-'Content-Security-Policy': 'default-src \'self\'; script-src \'self\' \'unsafe-inline\'; style-src \'self\' \'unsafe-inline\'; img-src \'self\' data:; font-src \'self\' data:; connect-src \'self\'',
+        'Content-Security-Policy': 'default-src \'self\'; script-src \'self\' \'unsafe-inline\'; style-src \'self\' \'unsafe-inline\'; img-src \'self\' data:; font-src \'self\' data:; connect-src \'self\'',
       },
     },
   },
@@ -34,6 +34,9 @@ export default defineNuxtConfig({
   vite: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     plugins: [tailwindcss() as any],
+    optimizeDeps: {
+      include: ['@popperjs/core'],
+    },
   },
   eslint: {
     config: {
