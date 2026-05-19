@@ -48,12 +48,15 @@ npm run dev    # http://localhost:3000
 NODE_ENV=development
 
 DATABASE_URL=
-SECOND_DATABASE_URL=
 
 BETTER_AUTH_SECRET=
 BETTER_AUTH_URL=http://localhost:3000
 
 ANTHROPIC_API_KEY=
+
+# Only needed when running db:seed-admin
+SEED_ADMIN_EMAIL=
+SEED_ADMIN_PASSWORD=
 ```
 
 ### Database commands
