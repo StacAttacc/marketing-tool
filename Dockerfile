@@ -2,7 +2,7 @@ FROM node:24-alpine AS builder
 WORKDIR /app
 
 COPY package.json package-lock.json .npmrc ./
-RUN ls -la && HUSKY=0 npm ci
+RUN HUSKY=0 npm install
 
 COPY . .
 RUN npm run build
