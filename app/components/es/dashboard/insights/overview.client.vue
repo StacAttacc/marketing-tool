@@ -73,71 +73,71 @@ onUnmounted(() => document.removeEventListener('click', handleClickOutside))
 
 <template>
   <div class="rounded-xl bg-base-200/50 p-4 shadow shadow-prometheus-orange/50">
-    <div class="flex items-center gap-2 pb-3 mb-4 border-b border-base-300">
+    <div class="flex flex-col gap-2 pb-3 mb-4 border-b border-base-300 sm:flex-row sm:items-center">
       <h3 class="shrink-0">
         Budget Insights
       </h3>
-      <div class="w-px h-5 bg-base-300 shrink-0 mx-1" />
-      <details
-        ref="dropdownRef"
-        class="dropdown"
-        @toggle="onToggle"
-      >
-        <summary
-          class="btn btn-sm border border-transparent rounded-lg"
-          :class="isOpen ? 'bg-base-300' : 'bg-base-100 border-base-300 hover:bg-base-200'"
-          :aria-disabled="!quarters.length"
+      <div class="flex items-center gap-2 sm:flex-1 min-w-0">
+        <details
+          ref="dropdownRef"
+          class="dropdown"
+          @toggle="onToggle"
         >
-          <Icon name="lucide:calendar" />
-          {{ selectedQuarter?.label ?? 'Select period' }}
-          <Icon :name="isOpen ? 'lucide:chevron-up' : 'lucide:chevron-down'" />
-        </summary>
-        <div class="dropdown-content z-50 mt-2 rounded-xl bg-base-100 shadow shadow-prometheus-orange/50 p-1">
-          <ul class="menu w-full">
-            <li
-              v-for="q in quarters"
-              :key="q.key"
-            >
-              <button
-                class="hover:bg-base-200 w-full text-left rounded-xl text-sm whitespace-nowrap"
-                :class="{ 'bg-base-200': q.key === selectedQuarterKey }"
-                @click="selectQuarter(q.key)"
+          <summary
+            class="btn btn-sm border border-transparent rounded-lg"
+            :class="isOpen ? 'bg-base-300' : 'bg-base-100 border-base-300 hover:bg-base-200'"
+            :aria-disabled="!quarters.length"
+          >
+            <Icon name="lucide:calendar" />
+            {{ selectedQuarter?.label ?? 'Select period' }}
+            <Icon :name="isOpen ? 'lucide:chevron-up' : 'lucide:chevron-down'" />
+          </summary>
+          <div class="dropdown-content z-50 mt-2 rounded-xl bg-base-100 shadow shadow-prometheus-orange/50 p-1">
+            <ul class="menu w-full">
+              <li
+                v-for="q in quarters"
+                :key="q.key"
               >
-                {{ q.label }}
-              </button>
-            </li>
-          </ul>
-        </div>
-      </details>
-      <div class="w-px h-5 bg-base-300 shrink-0 mx-1" />
-      <div class="overflow-x-auto scrollbar-thin flex-1">
-        <div class="flex gap-1.5 min-w-max">
-          <button
-            class="btn btn-sm border border-transparent rounded-lg"
-            :class="selectedChannel === null ? 'bg-base-300' : 'bg-base-100 border-base-300 hover:bg-base-200'"
-            @click="selectChannel(null)"
-          >
-            All
-          </button>
-          <button
-            v-for="ch in channelColors"
-            :key="ch.name"
-            class="btn btn-sm border border-transparent rounded-lg"
-            :class="selectedChannel === ch.name ? 'bg-base-300' : 'bg-base-100 border-base-300 hover:bg-base-200'"
-            @click="selectChannel(ch.name)"
-          >
-            <span
-              class="w-2.5 h-2.5 rounded-sm inline-block shrink-0"
-              :style="{ backgroundColor: ch.color }"
-            />
-            {{ ch.name }}
-          </button>
+                <button
+                  class="hover:bg-base-200 w-full text-left rounded-xl text-sm whitespace-nowrap"
+                  :class="{ 'bg-base-200': q.key === selectedQuarterKey }"
+                  @click="selectQuarter(q.key)"
+                >
+                  {{ q.label }}
+                </button>
+              </li>
+            </ul>
+          </div>
+        </details>
+        <div class="overflow-x-auto scrollbar-thin flex-1 min-w-0">
+          <div class="flex gap-1.5 min-w-max">
+            <button
+              class="btn btn-sm border border-transparent rounded-lg"
+              :class="selectedChannel === null ? 'bg-base-300' : 'bg-base-100 border-base-300 hover:bg-base-200'"
+              @click="selectChannel(null)"
+            >
+              All
+            </button>
+            <button
+              v-for="ch in channelColors"
+              :key="ch.name"
+              class="btn btn-sm border border-transparent rounded-lg"
+              :class="selectedChannel === ch.name ? 'bg-base-300' : 'bg-base-100 border-base-300 hover:bg-base-200'"
+              @click="selectChannel(ch.name)"
+            >
+              <span
+                class="w-2.5 h-2.5 rounded-sm inline-block shrink-0"
+                :style="{ backgroundColor: ch.color }"
+              />
+              {{ ch.name }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-5 gap-4">
-      <div class="grid grid-cols-3 lg:grid-cols-1 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-4">
         <EsDashboardInsightsBudgetTotal :range="range" />
         <EsDashboardInsightsRevenueTotal
           :range="range"

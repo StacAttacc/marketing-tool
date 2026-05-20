@@ -61,57 +61,57 @@ onUnmounted(() => document.removeEventListener('click', handleClickOutside))
 
 <template>
   <div class="p-4">
-    <div class="flex items-center gap-2 pb-3 mb-4 border-b border-base-300">
+    <div class="flex flex-col gap-2 pb-3 mb-4 border-b border-base-300 sm:flex-row sm:items-center">
       <h3 class="shrink-0">
         Budget Prediction
       </h3>
-      <div class="w-px h-5 bg-base-300 shrink-0 mx-1" />
-
-      <details
-        ref="dropdownRef"
-        class="dropdown"
-        @toggle="onToggle"
-      >
-        <summary
-          class="btn btn-sm border border-transparent rounded-lg"
-          :class="isOpen ? 'bg-base-300' : 'bg-base-100 border-base-300 hover:bg-base-200'"
+      <div class="flex items-center gap-2 flex-wrap">
+        <details
+          ref="dropdownRef"
+          class="dropdown"
+          @toggle="onToggle"
         >
-          <Icon name="lucide:calendar" />
-          {{ selectedBudget?.budgetPeriod ?? 'Select period' }}
-          <Icon :name="isOpen ? 'lucide:chevron-up' : 'lucide:chevron-down'" />
-        </summary>
-        <div class="dropdown-content z-50 mt-2 rounded-xl bg-base-100 shadow shadow-prometheus-orange/50 p-1">
-          <ul class="menu w-full">
-            <li
-              v-for="b in budgetsData?.budgets"
-              :key="b.id"
-            >
-              <button
-                class="hover:bg-base-200 w-full text-left rounded-xl text-sm whitespace-nowrap"
-                :class="{ 'bg-base-200': b.id === selectedBudgetId }"
-                @click="selectBudget(b.id)"
+          <summary
+            class="btn btn-sm border border-transparent rounded-lg"
+            :class="isOpen ? 'bg-base-300' : 'bg-base-100 border-base-300 hover:bg-base-200'"
+          >
+            <Icon name="lucide:calendar" />
+            {{ selectedBudget?.budgetPeriod ?? 'Select period' }}
+            <Icon :name="isOpen ? 'lucide:chevron-up' : 'lucide:chevron-down'" />
+          </summary>
+          <div class="dropdown-content z-50 mt-2 rounded-xl bg-base-100 shadow shadow-prometheus-orange/50 p-1">
+            <ul class="menu w-full">
+              <li
+                v-for="b in budgetsData?.budgets"
+                :key="b.id"
               >
-                {{ b.budgetPeriod }}
-              </button>
-            </li>
-          </ul>
-        </div>
-      </details>
+                <button
+                  class="hover:bg-base-200 w-full text-left rounded-xl text-sm whitespace-nowrap"
+                  :class="{ 'bg-base-200': b.id === selectedBudgetId }"
+                  @click="selectBudget(b.id)"
+                >
+                  {{ b.budgetPeriod }}
+                </button>
+              </li>
+            </ul>
+          </div>
+        </details>
 
-      <div class="w-px h-5 bg-base-300 shrink-0 mx-1" />
+        <div class="w-px h-5 bg-base-300 shrink-0" />
 
-      <label class="input input-sm flex bg-base-100/50 items-center gap-1">
-        <span class="text-base-content/50 shrink-0">Planned budget</span>
-        <input
-          v-model.number="totalBudgetCents"
-          type="number"
-          min="0"
-          step="100"
-          class="w-24 text-right tabular-nums"
-          placeholder="0"
-        >
-        <span class="text-base-content/50 shrink-0 text-xs">{{ totalBudgetFormatted }}</span>
-      </label>
+        <label class="input input-sm flex bg-base-100/50 items-center gap-1 min-w-0">
+          <span class="text-base-content/50 shrink-0 text-xs">Planned budget</span>
+          <input
+            v-model.number="totalBudgetCents"
+            type="number"
+            min="0"
+            step="100"
+            class="w-16 sm:w-24 text-right tabular-nums min-w-0"
+            placeholder="0"
+          >
+          <span class="text-base-content/50 shrink-0 text-xs">{{ totalBudgetFormatted }}</span>
+        </label>
+      </div>
     </div>
 
     <EsDemoOverview

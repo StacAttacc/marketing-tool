@@ -137,27 +137,29 @@ function savePrediction() {
 
 <template>
   <div class="rounded-xl bg-base-200/50 p-4 shadow shadow-prometheus-orange/50">
-    <div class="flex items-center gap-2 pb-3 mb-4 border-b border-base-300">
-      <h3 class="shrink-0">
-        Spend Prediction
-      </h3>
-      <span
-        v-if="allocations.length"
-        class="text-sm"
-        :class="remainingPercentage !== 0 ? 'text-error' : 'text-base-content/50'"
-      >
-        {{ remainingPercentage.toFixed(1) }}% remaining
-      </span>
-      <div class="flex items-center gap-2 ml-auto">
+    <div class="flex flex-col gap-2 pb-3 mb-4 border-b border-base-300 sm:flex-row sm:items-center">
+      <div class="flex items-center gap-2">
+        <h3 class="shrink-0">
+          Spend Prediction
+        </h3>
+        <span
+          v-if="allocations.length"
+          class="text-sm"
+          :class="remainingPercentage !== 0 ? 'text-error' : 'text-base-content/50'"
+        >
+          {{ remainingPercentage.toFixed(1) }}% remaining
+        </span>
+      </div>
+      <div class="flex items-center gap-2 sm:ml-auto">
         <input
           v-model="predictionPeriod"
           type="text"
           placeholder="Label (e.g. Q2 2026)"
-          class="input input-sm input-bordered w-44"
+          class="input input-sm input-bordered flex-1 sm:w-44 sm:flex-none"
           :disabled="!budgetId"
         >
         <button
-          class="btn btn-sm border rounded-lg bg-transparent border-base-300 hover:bg-base-200"
+          class="btn btn-sm border rounded-lg bg-transparent border-base-300 hover:bg-base-200 shrink-0"
           :disabled="!canSave || isCreating"
           @click="savePrediction"
         >

@@ -23,11 +23,11 @@ function handleClose() {
     @keydown.escape="handleClose"
   >
     <div class="modal-box max-w-lg max-h-[90%] rounded-lg text-sm flex flex-col shadow-sm shadow-base-300">
-      <div class="flex items-center justify-between pb-4 border-b border-base-300 shrink-0">
-        <h3 class="font-bold text-lg">
+      <div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-base-300 shrink-0">
+        <h3 class="font-bold text-lg min-w-0 mr-2 truncate">
           {{ title }}
         </h3>
-        <div class="flex gap-2">
+        <div class="flex gap-2 shrink-0">
           <template v-if="mode === 'create'">
             <button
               class="btn btn-ghost btn-sm border border-base-200 bg-base-100 shadow shadow-base-300 rounded-lg"

@@ -22,13 +22,12 @@ const selectChannel = (channelName: string | null) => {
 <template>
   <div class="p-4">
     <!-- Global filter toolbar -->
-    <div class="flex items-center gap-2 pb-3 mb-4 border-b border-base-300">
+    <div class="flex flex-col gap-2 pb-3 mb-4 border-b border-base-300 sm:flex-row sm:items-center">
       <EsDateRangePicker
         v-model="range"
         class="shrink-0"
       />
-      <div class="w-px h-5 bg-base-300 shrink-0 mx-1" />
-      <div class="overflow-x-auto scrollbar-thin flex-1">
+      <div class="overflow-x-auto scrollbar-thin sm:flex-1">
         <div class="flex gap-1.5 min-w-max">
           <button
             class="btn btn-sm border border-transparent rounded-lg"
