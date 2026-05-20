@@ -44,7 +44,7 @@ const breadcrumbs = computed(() => {
       <label
         for="main-drawer"
         aria-label="open sidebar"
-        class="text-prometheus-orange cursor-auto hover:cursor-pointer ml-6 pt-2"
+        class="hidden lg:flex text-prometheus-orange cursor-auto hover:cursor-pointer ml-6 pt-2"
       >
         <Icon name="lucide:panel-right" />
       </label>
