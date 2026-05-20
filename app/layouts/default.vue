@@ -7,10 +7,9 @@
     >
     <div class="drawer-content flex flex-col">
       <EsNavBar />
-      <main class="flex-1 bg-base-100 text-prometheus-orange p-4 pb-16 lg:pb-4">
+      <main class="flex-1 bg-base-100 text-prometheus-orange p-4">
         <slot />
       </main>
-      <EsBottomNav />
     </div>
 
     <div class="drawer-side is-drawer-close:overflow-visible">
