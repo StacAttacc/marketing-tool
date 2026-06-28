@@ -18,7 +18,7 @@ const handler = new RPCHandler(router, {
 })
 
 export default defineEventHandler(async (event) => {
-  const request = toWebRequest(event)
+  const request = toRequest(event)
 
   const { response } = await handler.handle(request, {
     prefix: '/api/rpc',
