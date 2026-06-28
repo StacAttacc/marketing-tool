@@ -1,6 +1,7 @@
 import { ORPCError, onError } from '@orpc/server'
 import { RPCHandler } from '@orpc/server/fetch'
 import { getDb } from '~~/server/database/db'
+import { env } from '~~/server/env'
 
 import { router } from '~~/server/orpc/router'
 
@@ -18,7 +19,8 @@ const handler = new RPCHandler(router, {
 })
 
 export default defineEventHandler(async (event) => {
-  const request = new Request(getRequestURL(event), event.req)
+  const url = new URL(event.req.url, env.BETTER_AUTH_URL)
+  const request = new Request(url, event.req)
 
   const { response } = await handler.handle(request, {
     prefix: '/api/rpc',
