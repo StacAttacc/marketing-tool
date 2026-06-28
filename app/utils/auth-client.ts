@@ -1,14 +1,20 @@
 import { sentinelClient } from '@better-auth/infra/client'
 import { createAuthClient } from 'better-auth/vue'
 
-export const authClient = createAuthClient({
-  baseURL: process.env.BETTER_AUTH_URL,
-  plugins: [
-    sentinelClient(),
-  ],
-})
+let _authClient: ReturnType<typeof createAuthClient> | null = null
+
+function getAuthClient() {
+  if (!_authClient) {
+    _authClient = createAuthClient({
+      baseURL: useRuntimeConfig().public.betterAuthUrl,
+      plugins: [sentinelClient()],
+    })
+  }
+  return _authClient
+}
 
 export const useAuth = () => {
+  const authClient = getAuthClient()
   const session = authClient.useSession()
 
   const login = async (email: string, password: string) => {
