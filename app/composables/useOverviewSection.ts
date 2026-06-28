@@ -23,9 +23,5 @@ export function useOverviewSection(props: OverviewSectionProps) {
 
   const { channelColors } = useChannelColors()
 
-  const selectChannel = (channelName: string | null) => {
-    selectedChannel.value = selectedChannel.value === channelName ? null : channelName
-  }
-
-  return { range, selectedChannel, channelColors, selectChannel }
+  return { range, selectedChannel, channelColors }
 }

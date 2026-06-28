@@ -5,7 +5,60 @@ const signOut = async () => {
   await logout()
 }
 
-const route = useRoute()
+const route = useRoute()[4:27:34 PM]  WARN  [Vue warn]: Failed to resolve component: VDatePicker
+If this is a native custom element, make sure to exclude it from component resolution via compilerOptions.isCustomElement. at <EsDateRangePicker>
+at <Dashboard>
+at <RouteProvider>
+at <RouterView>
+at <NuxtPage>
+at <Default>
+at <AsyncComponentWrapper>
+at <LayoutLoader>
+at <NuxtLayoutProvider>
+at <NuxtLayout>
+at <App>
+at <NuxtRoot>
+[4:27:34 PM]  WARN  [Vue warn]: Component <Anonymous> is missing template or render function. at <Anonymous>
+at <EsDateRangePicker>
+at <Dashboard>
+at <RouteProvider>
+at <RouterView>
+at <NuxtPage>
+at <Default>
+at <AsyncComponentWrapper>
+at <LayoutLoader>
+at <NuxtLayoutProvider>
+at <NuxtLayout>
+at <App>
+at <NuxtRoot>
+[4:30:00 PM] ℹ hmr update /tailwind.css?direct, /tailwind.css
+[4:30:07 PM] ✔ Vite server hmr 1 files in 0.006ms
+[4:30:07 PM]  WARN  [Vue warn]: Failed to resolve component: VDatePicker
+If this is a native custom element, make sure to exclude it from component resolution via compilerOptions.isCustomElement. at <EsDateRangePicker>
+at <Dashboard>
+at <RouteProvider>
+at <RouterView>
+at <NuxtPage>
+at <Default>
+at <AsyncComponentWrapper>
+at <LayoutLoader>
+at <NuxtLayoutProvider>
+at <NuxtLayout>
+at <App>
+at <NuxtRoot>
+[4:30:07 PM]  WARN  [Vue warn]: Component <Anonymous> is missing template or render function. at <Anonymous>
+at <EsDateRangePicker>
+at <Dashboard>
+at <RouteProvider>
+at <RouterView>
+at <NuxtPage>
+at <Default>
+at <AsyncComponentWrapper>
+at <LayoutLoader>
+at <NuxtLayoutProvider>
+at <NuxtLayout>
+at <App>
+at <NuxtRoot>
 
 const isChatOpen = ref(false)
 
@@ -36,13 +89,13 @@ const pages = [
       <span class="dock-label">Chat</span>
     </button>
 
-    <NuxtLink
+    <button
       to="/"
       @click="signOut"
     >
       <Icon name="lucide:log-out" />
       <span class="dock-label">Sign Out</span>
-    </NuxtLink>
+    </button>
   </nav>
 
   <EsChatModal

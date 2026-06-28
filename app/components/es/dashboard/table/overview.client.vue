@@ -74,8 +74,8 @@ const fmtRoi = (v: number | null) =>
 <template>
   <div class="rounded-xl bg-base-200/50 p-4 shadow shadow-prometheus-orange/50">
     <div class="flex items-center gap-2 pb-3 mb-4 border-b border-base-300">
-      <h3 class="shrink-0">
-        Channel Overview
+      <h3 class="shrink-0 sm:justify-between">
+        Overview
       </h3>
       <div class="w-px h-5 bg-base-300 shrink-0 mx-1" />
       <EsDateRangePicker
