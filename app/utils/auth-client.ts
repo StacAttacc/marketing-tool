@@ -6,7 +6,7 @@ let _authClient: ReturnType<typeof createAuthClient> | null = null
 function getAuthClient() {
   if (!_authClient) {
     _authClient = createAuthClient({
-      baseURL: useRuntimeConfig().public.betterAuthUrl,
+      baseURL: import.meta.client ? window.location.origin : useRuntimeConfig().public.betterAuthUrl,
       plugins: [sentinelClient()],
     })
   }
