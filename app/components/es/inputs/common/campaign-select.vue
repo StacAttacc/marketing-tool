@@ -65,9 +65,9 @@ function pickCampaign(val: string) {
   if (campaignRef.value) campaignRef.value.open = false
 }
 
-function closeIfOutside(ref: Ref<HTMLDetailsElement | undefined>, e: FocusEvent) {
-  if (!ref.value?.contains(e.relatedTarget as Node))
-    ref.value!.open = false
+function closeIfOutside(el: HTMLDetailsElement | undefined, e: FocusEvent) {
+  if (!el) return
+  if (!el.contains(e.relatedTarget as Node)) el.open = false
 }
 </script>
 

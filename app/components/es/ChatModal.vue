@@ -39,7 +39,7 @@ function onFileChange(e: Event) {
     reader.onload = (event) => {
       const dataUrl = event.target?.result as string
       pendingImages.value.push({
-        data: dataUrl.split(',')[1],
+        data: dataUrl.split(',')[1]!,
         mimeType: file.type as PendingImage['mimeType'],
       })
     }
