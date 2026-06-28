@@ -19,9 +19,35 @@ export default defineEventHandler(async (event) => {
 
   const init: RequestInit = { method, headers }
   if (method !== 'GET' && method !== 'HEAD') {
-    const body = await readRawBody(event, false)
-    if (body) init.body = body
+    const body = await readBodyBuffer(event)
+    if (body && body.length > 0) init.body = body
   }
 
   return auth.handler(new Request(url, init))
 })
+
+async function readBodyBuffer(event: Parameters<Parameters<typeof defineEventHandler>[0]>[0]): Promise<Buffer | undefined> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const e = event as any
+  const webBody = e.web?.request?.body as ReadableStream<Uint8Array> | undefined
+  if (webBody) {
+    const reader = webBody.getReader()
+    const chunks: Uint8Array[] = []
+    while (true) {
+      const { done, value } = await reader.read()
+      if (done) break
+      if (value) chunks.push(value)
+    }
+    return Buffer.concat(chunks)
+  }
+  const nodeReq = e.node?.req
+  if (nodeReq && typeof nodeReq.on === 'function') {
+    return new Promise<Buffer>((resolve, reject) => {
+      const chunks: Buffer[] = []
+      nodeReq.on('data', (c: Buffer) => chunks.push(c))
+      nodeReq.on('end', () => resolve(Buffer.concat(chunks)))
+      nodeReq.on('error', reject)
+    })
+  }
+  return undefined
+}
