@@ -1,8 +1,15 @@
 <script setup lang="ts">
+const { logout } = useAuth()
+
+const signOut = async () => {
+  await logout()
+}
+
 const route = useRoute()
+
 const isChatOpen = ref(false)
 
-const navItems = [
+const pages = [
   { label: 'Dashboard', icon: 'lucide:layout-dashboard', to: '/dashboard' },
   { label: 'Budget Input', icon: 'lucide:text-cursor-input', to: '/budget-input' },
   { label: 'Demo', icon: 'lucide:play', to: '/demo' },
@@ -12,7 +19,7 @@ const navItems = [
 <template>
   <nav class="dock dock-sm lg:hidden bg-base-200 text-prometheus-orange">
     <NuxtLink
-      v-for="item in navItems"
+      v-for="item in pages"
       :key="item.to"
       :to="item.to"
       :class="{ 'dock-active': route.path === item.to }"
@@ -28,6 +35,14 @@ const navItems = [
       <Icon name="lucide:bot" />
       <span class="dock-label">Chat</span>
     </button>
+
+    <NuxtLink
+      to="/"
+      @click="signOut"
+    >
+      <Icon name="lucide:log-out" />
+      <span class="dock-label">Sign Out</span>
+    </NuxtLink>
   </nav>
 
   <EsChatModal
