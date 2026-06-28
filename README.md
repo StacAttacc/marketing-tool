@@ -2,6 +2,8 @@
 
 An internal marketing budget management and analytics dashboard. Input spend and results per channel per budget period, view ROI, CPA, and ARPU metrics, and chat with an AI analyst about your budget data.
 
+**Demo:** https://marketing-tool-one.vercel.app
+
 ---
 
 ## Tech Stack
@@ -49,7 +51,7 @@ NODE_ENV=development
 
 DATABASE_URL=
 
-BETTER_AUTH_SECRET=
+BETTER_AUTH_API_KEY=
 BETTER_AUTH_URL=http://localhost:3000
 
 ANTHROPIC_API_KEY=
