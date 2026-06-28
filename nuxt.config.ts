@@ -13,7 +13,7 @@ export default defineNuxtConfig({
   },
   css: ['./app/tailwind.css'],
   runtimeConfig: {
-    betterAuthSecret: process.env.BETTER_AUTH_SECRET,
+    betterAuthApiKey: process.env.BETTER_AUTH_API_KEY,
     anthropicApiKey: process.env.ANTHROPIC_API_KEY,
     public: {
       betterAuthUrl: process.env.BETTER_AUTH_URL,
