@@ -18,5 +18,7 @@ export const auth = betterAuth({
     expiresIn: 60 * 60 * 24,
     updateAge: 60 * 15,
   },
-  plugins: [dash()],
+  plugins: [
+    dash(),
+  ],
 })
