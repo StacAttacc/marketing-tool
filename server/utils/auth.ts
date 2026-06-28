@@ -1,3 +1,4 @@
+import { dash } from '@better-auth/infra'
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { getDb } from '~~/server/database/db'
@@ -22,4 +23,7 @@ export const auth = betterAuth({
     expiresIn: 60 * 60 * 24,
     updateAge: 60 * 15,
   },
+  plugins: [
+    dash(),
+  ],
 })
