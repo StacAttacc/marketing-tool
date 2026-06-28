@@ -18,11 +18,9 @@ const handler = new RPCHandler(router, {
 })
 
 export default defineEventHandler(async (event) => {
-  const request = toRequest(event)
-
-  const { response } = await handler.handle(request, {
+  const { response } = await handler.handle(event.req, {
     prefix: '/api/rpc',
-    context: { headers: event.headers, db: getDb() },
+    context: { headers: event.req.headers, db: getDb() },
   })
 
   if (response) {
