@@ -170,14 +170,16 @@ const selectPreset = (preset: typeof presets[number]) => {
             </li>
           </ul>
         </div>
-        <VDatePicker
-          v-model.range="model"
-          mode="date"
-          transparent
-          borderless
-          color="orange"
-          :max-date="maxDate"
-        />
+        <ClientOnly>
+          <VDatePicker
+            v-model.range="model"
+            mode="date"
+            transparent
+            borderless
+            color="orange"
+            :max-date="maxDate"
+          />
+        </ClientOnly>
       </div>
     </div>
   </details>

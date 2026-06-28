@@ -16,6 +16,8 @@ defineProps<{
     <span
       v-else
       class="text-2xl font-semibold"
-    >{{ value }}</span>
+    >
+      {{ value }}
+    </span>
   </div>
 </template>

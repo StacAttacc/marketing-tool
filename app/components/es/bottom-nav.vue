@@ -1,5 +1,12 @@
 <script setup lang="ts">
+const { logout } = useAuth()
+
+const signOut = async () => {
+  await logout()
+}
+
 const route = useRoute()
+
 const isChatOpen = ref(false)
 
 const navItems = [
@@ -27,6 +34,14 @@ const navItems = [
     >
       <Icon name="lucide:bot" />
       <span class="dock-label">Chat</span>
+    </button>
+
+    <button
+      to="/"
+      @click="signOut"
+    >
+      <Icon name="lucide:log-out" />
+      <span class="dock-label">Sign Out</span>
     </button>
   </nav>
 

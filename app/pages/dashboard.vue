@@ -13,10 +13,6 @@ const range = ref({
 const selectedChannel = ref<string | null>(null)
 
 const { channelColors } = useChannelColors()
-
-const selectChannel = (channelName: string | null) => {
-  selectedChannel.value = selectedChannel.value === channelName ? null : channelName
-}
 </script>
 
 <template>
@@ -27,30 +23,10 @@ const selectChannel = (channelName: string | null) => {
         v-model="range"
         class="shrink-0"
       />
-      <div class="overflow-x-auto scrollbar-thin sm:flex-1">
-        <div class="flex gap-1.5 min-w-max">
-          <button
-            class="btn btn-sm border border-transparent rounded-lg"
-            :class="selectedChannel === null ? 'bg-base-300' : 'bg-transparent border-base-300 hover:bg-base-200'"
-            @click="selectChannel(null)"
-          >
-            All
-          </button>
-          <button
-            v-for="ch in channelColors"
-            :key="ch.name"
-            class="btn btn-sm border border-transparent rounded-lg"
-            :class="selectedChannel === ch.name ? 'bg-base-300' : 'bg-transparent border-base-300 hover:bg-base-200'"
-            @click="selectChannel(ch.name)"
-          >
-            <span
-              class="w-2.5 h-2.5 rounded-sm inline-block shrink-0"
-              :style="{ backgroundColor: ch.color }"
-            />
-            {{ ch.name }}
-          </button>
-        </div>
-      </div>
+      <EsDashboardCommonChannelSelector
+        v-model:selected="selectedChannel"
+        :channels="channelColors"
+      />
     </div>
 
     <EsDashboardTableOverview
