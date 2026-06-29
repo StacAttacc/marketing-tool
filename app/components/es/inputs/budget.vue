@@ -114,7 +114,7 @@ function handleDelete(budgetId: string) {
 
     <template v-else>
       <EsInputsCommonHeader
-        title="manage your budgets"
+        title="Manage your budgets"
         button-text="+ New Budget"
         @add="openCreateModal"
       />

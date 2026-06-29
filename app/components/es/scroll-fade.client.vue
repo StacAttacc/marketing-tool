@@ -18,7 +18,7 @@ const maskStyle = computed(() => {
 <template>
   <div
     ref="scrollEl"
-    class="overflow-x-auto"
+    class="overflow-x-auto scrollbar-hidden"
     :style="maskStyle"
   >
     <slot />
