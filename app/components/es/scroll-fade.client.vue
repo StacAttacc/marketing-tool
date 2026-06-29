@@ -5,7 +5,7 @@ import { useScrollEdgeFade } from '~/composables/useScrollEdgeFade'
 const scrollEl = ref<HTMLElement | null>(null)
 const { canScrollLeft, canScrollRight } = useScrollEdgeFade(scrollEl)
 
-const FADE = '6rem'
+const FADE = '3rem'
 const maskStyle = computed(() => {
   if (!canScrollLeft.value && !canScrollRight.value) return undefined
   const leftStop = canScrollLeft.value ? `transparent, black ${FADE}` : 'black, black'
