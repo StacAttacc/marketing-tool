@@ -91,11 +91,11 @@ const fmtRoi = (v: number | null) =>
       <span class="loading loading-spinner loading-lg text-prometheus-orange" />
     </div>
 
-    <div
+    <EsScrollFade
       v-else-if="rows.length"
-      class="overflow-x-auto rounded-xl bg-base-100 shadow shadow-base-300 p-4"
+      class="rounded-xl bg-base-100 shadow shadow-base-300 p-4"
     >
-      <table class="table table-sm w-full">
+      <table class="table table-sm w-full whitespace-nowrap">
         <thead>
           <tr class="border-b border-base-300 text-base-content/60 text-xs uppercase tracking-wide">
             <th class="bg-transparent">
@@ -189,7 +189,7 @@ const fmtRoi = (v: number | null) =>
           </tr>
         </tfoot>
       </table>
-    </div>
+    </EsScrollFade>
 
     <div
       v-else

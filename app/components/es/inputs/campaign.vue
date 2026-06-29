@@ -108,8 +108,8 @@ function handleDelete(campaignId: string) {
             { value: 'startDate', label: 'Date', type: 'date' },
           ]"
         />
-        <div class="overflow-x-auto">
-          <table class="table table-sm w-full text-center">
+        <EsScrollFade>
+          <table class="table table-sm w-full text-center whitespace-nowrap">
             <thead>
               <tr class="border-b border-base-300 text-base-content/60 text-xs uppercase tracking-wide">
                 <th class="bg-transparent">
@@ -194,7 +194,7 @@ function handleDelete(campaignId: string) {
               </tr>
             </tbody>
           </table>
-        </div>
+        </EsScrollFade>
 
         <EsInputsCommonPagination
           :page="page"
